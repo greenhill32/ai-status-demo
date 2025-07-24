@@ -1,4 +1,4 @@
-import { currentStatus } from './get_status';
+import { statusStore } from './get_status';
 
 export default async function handler(req, res) {
   if (req.method !== 'POST') {
@@ -13,7 +13,8 @@ export default async function handler(req, res) {
     return res.status(400).json({ message: 'Missing status' });
   }
 
-  currentStatus = data.status;
+  // Safely update
+  statusStore.currentStatus = data.status;
 
-  res.status(200).json({ message: Status updated to  });
+  res.status(200).json({ message: `Status updated to ${data.status}` });
 }
