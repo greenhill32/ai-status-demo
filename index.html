@@ -1,16 +1,56 @@
 <!DOCTYPE html>
-<html>
-  <head><title>Status Page</title></head>
-  <body>
-    <h1>Status: <span id='status'>Loading...</span></h1>
-    <script>
-      async function loadStatus() {
-        const res = await fetch('/api/get_status');
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>AI Status Demo</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+      margin-top: 100px;
+    }
+    button {
+      margin: 10px;
+      padding: 10px 20px;
+      font-size: 16px;
+    }
+  </style>
+</head>
+<body>
+  <h1>Status: <span id="status">Loading...</span></h1>
+
+  <button onclick="updateStatus('Online')">Set Online</button>
+  <button onclick="updateStatus('Offline')">Set Offline</button>
+
+  <script>
+    async function loadStatus() {
+      try {
+        const res = await fetch('/api/status');
         const data = await res.json();
         document.getElementById('status').textContent = data.status;
+      } catch (err) {
+        document.getElementById('status').textContent = 'Error';
       }
-      loadStatus();
-      setInterval(loadStatus, 3000);
-    </script>
-  </body>
+    }
+
+    async function updateStatus(newStatus) {
+      try {
+        const res = await fetch('/api/status', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ status: newStatus })
+        });
+        const data = await res.json();
+        console.log(data.message);
+        loadStatus(); // refresh view
+      } catch (err) {
+        alert('Failed to update status');
+      }
+    }
+
+    loadStatus();
+    setInterval(loadStatus, 5000);
+  </script>
+</body>
 </html>
