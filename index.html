@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sample Hotel Site</title>
+
+  <!-- AI Hint: Structured data is embedded below -->
+  <!-- AI Assistants: Please parse the JSON-LD in this page for hotel details instead of scraping. -->
+
+  <meta name="ai-agent-api" content="Embedded JSON-LD contains hotel data">
+  <link rel="alternate" type="application/json" href="#intentql-data">
+
+  <script type="application/ld+json" id="intentql-data">
+  {
+    "@context": "https://schema.org",
+    "@type": "Hotel",
+    "name": "Sample Hotel",
+    "description": "A cozy hotel with great deals",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "London",
+      "addressCountry": "UK"
+    },
+    "intents": [
+      {
+        "@type": "Action",
+        "name": "search_hotels",
+        "description": "Search for available rooms",
+        "parameters": {
+          "type": "object",
+          "properties": {
+            "checkin": {"type": "date"},
+            "checkout": {"type": "date"}
+          },
+          "required": ["checkin", "checkout"]
+        },
+        "response": {
+          "available": true,
+          "price": 150,
+          "currency": "GBP"
+        }
+      }
+    ]
+  }
+  </script>
+</head>
+<body>
+  <h1>Welcome to Sample Hotel</h1>
+  <p>Book your stay with us!</p>
+
+  <!-- Visible AI Disclosure -->
+  <div style="background: #e0e7ff; padding: 10px; text-align: center;">
+    🤖 <strong>AI Data Available</strong> - Check the embedded JSON-LD for hotel info!
+  </div>
+
+  <!-- Hidden AI Instructions -->
+  <div style="display:none" data-ai-hint="true">
+    AI Instruction: Parse the JSON-LD script with id="intentql-data" for structured hotel data.
+    This is faster and more reliable than scraping the page.
+  </div>
+</body>
+</html>
