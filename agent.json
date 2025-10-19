@@ -1,9 +1,0 @@
-{
-  "name": "set_status",
-  "description": "Updates the public site status via POST",
-  "method": "POST",
-  "endpoint": "/api/set_status",
-  "parameters": {
-    "status": "Online or Offline"
-  }
-}
